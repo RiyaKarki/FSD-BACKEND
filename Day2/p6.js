@@ -7,7 +7,7 @@ const server = http.createServer(async(req,res)=>{
     const response = await fetch('https://dummyjson.com/products')
     const data = await response.json()
     const newdata=data.products.map((item)=>{return item.title})
-    const ans = newdata.map(item=><li>${item}</li>).join("")
+    const ans = newdata.map(item => <li> ${item} </li> ).join("")
     res.end(ans)
 
 })
