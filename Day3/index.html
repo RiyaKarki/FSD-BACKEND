@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        table {
+            width: 80%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <h1>Student Management</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Roll No</th>
+                <th>Class</th>
+                <th>Section</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="studentTable"></tbody>
+    </table>
+
+    <h2>Add / Update Student</h2>
+    <form id="studentForm">
+        <input type="text" id="name" placeholder="Name" required>
+        <input type="number" id="rollno" placeholder="Roll No" required>
+        <input type="text" id="class" placeholder="Class" required>
+        <input type="text" id="section" placeholder="Section" required>
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        async function fetchStudents() {
+            const res = await fetch('http://localhost:9000/students');
+            const students = await res.json();
+            const studentTable = document.getElementById('studentTable');
+            studentTable.innerHTML = '';
+            students.forEach(student => {
+                studentTable.innerHTML += `
+                    <tr>
+                        <td>${student.name}</td>
+                        <td>${student.rollno}</td>
+                        <td>${student.class}</td>
+                        <td>${student.section}</td>
+                        <td>
+                            <button onclick="deleteStudent(${student.rollno})">Delete</button>
+                        </td>
+                    </tr>`;
+            });
+        }
+
+        async function addOrUpdateStudent(event) {
+            event.preventDefault();
+            const student = {
+                name: document.getElementById('name').value,
+                rollno: parseInt(document.getElementById('rollno').value),
+                class: document.getElementById('class').value,
+                section: document.getElementById('section').value
+            };
+
+            await fetch('http://localhost:9000/students', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(student)
+            });
+            fetchStudents();
+        }
+
+        async function deleteStudent(rollno) {
+            await fetch(`http://localhost:9000/students/${rollno}`, {
+                method: 'DELETE'
+            });
+            fetchStudents();
+        }
+
+        document.getElementById('studentForm').addEventListener('submit', addOrUpdateStudent);
+        fetchStudents();
+    </script>
+</body>
+</html>

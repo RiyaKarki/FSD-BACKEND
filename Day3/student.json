@@ -1,0 +1,32 @@
+[
+  {
+    "name": "John",
+    "rollno": 21,
+    "class": "10th",
+    "section": "A"
+  },
+  {
+    "name": "Nick",
+    "rollno": 18,
+    "class": "10th",
+    "section": "B"
+  },
+  {
+    "name": "Casy",
+    "rollno": 15,
+    "class": "12th",
+    "section": "A"
+  },
+  {
+    "name": "Misty",
+    "rollno": 17,
+    "class": "10th",
+    "section": "C"
+  },
+  {
+    "name": "Ria",
+    "rollno": 140,
+    "class": "3rd yr",
+    "section": "A"
+  }
+]
