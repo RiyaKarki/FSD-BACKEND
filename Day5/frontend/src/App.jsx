@@ -7,7 +7,7 @@ import Update from './components/Update'
 const App = () => {
   return (
     <div>
-      <h1 style={{backgroundColor: 'violet'}}>User Registrstion System</h1>
+      <h1 style={{backgroundColor: 'darkmagenta',color:'white',fontSize:"3rem", textAlign:'center', margin:'0 auto'}}>User Registration System</h1>
       <Register/>
       <View/>
       <Delete/>
